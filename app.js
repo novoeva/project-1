@@ -26,9 +26,10 @@ for (let index = 0; index < width ** 2; index++) {
 
 //Define the key variables
 const startButton = document.querySelector('#start')
+const resetButton = document.querySelector('#reset')
 
 
-let direction =  ''
+let direction = ''
 
 //Event listener for changing the direction of the snake
 
@@ -57,25 +58,45 @@ document.addEventListener('keyup', (event) => {
 startButton.addEventListener('click', () => {
   const intervalId = setInterval(() => {
     // ! 
+
+    cells[snake].classList.add('snake')
+
     if (direction === 'right') {
-      cells[snake].classList.remove('snake')
-      snake -= +1
-      cells[snake].classList.add('snake')
-    } else if ( direction === 'left') {
-      cells[snake].classList.remove('snake')
-      snake -= 1
-      cells[snake].classList.add('snake')
-    } else if ( direction === 'up') {
-      cells[snake].classList.remove('snake')
-      snake -= width
-      cells[snake].classList.add('snake')
+
+      if (snake % width === width - 1) {
+        console.log('Game over')
+      } else {
+        cells[snake].classList.remove('snake')
+        snake += 1
+        cells[snake].classList.add('snake')
+      }
+    } else if (direction === 'left') {
+      if (snake % width === 0) {
+        console.log('Game over')
+      } else {
+        cells[snake].classList.remove('snake')
+        snake -= 1
+        cells[snake].classList.add('snake')
+      }
+    } else if (direction === 'up') {
+      if (snake < width) {
+        console.log('Game over')
+      } else {
+        cells[snake].classList.remove('snake')
+        snake -= width
+        cells[snake].classList.add('snake')
+      }
     } else if (direction === 'down') {
-      cells[snake].classList.remove('snake')
-      snake += width
-      cells[snake].classList.add('snake')
+      if (snake + width >= width ** 2) {
+        console.log('Game Over')
+      } else {
+        cells[snake].classList.remove('snake')
+        snake += width
+        cells[snake].classList.add('snake')
+      }
     }
 
-  }, 400)
+  }, 500)
 })
 
 
