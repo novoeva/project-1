@@ -28,38 +28,27 @@ for (let index = 0; index < width ** 2; index++) {
 const startButton = document.querySelector('#start')
 
 
+let direction =  ''
+
 //Event listener for changing the direction of the snake
 
 document.addEventListener('keyup', (event) => {
   const key = event.key
-
   if (key === 'ArrowRight' && !(snake % width === width - 1)) {
-    cells[snake].classList.remove('snake')
-    snake += 1
-    cells[snake].classList.add('snake')
-  // ? This below line if for if you don't want to boundary the whole wall.
-  // } else if (key === 'a' && !(snake === 0)) {
+    direction = 'right'
   } else if (key === 'ArrowLeft' && !(snake % width === 0)) {
-    cells[snake].classList.remove('snake')
-    snake -= 1
-    cells[snake].classList.add('snake')
+    direction = 'left'
   } else if (key === 'ArrowDown' && !(snake + width >= width ** 2)) {
-    cells[snake].classList.remove('snake')
-    snake += width
-    cells[snake].classList.add('snake')
+    direction = 'down'
   } else if (key === 'ArrowUp' && !(snake < width)) {
-    cells[snake].classList.remove('snake')
-    snake -= width
-    cells[snake].classList.add('snake')
+    direction = 'up'
   }
 })
 
 //Interval that keeps the object moving
 
-// let direction =  right
 
-
-let applePosition = 33
+// let applePosition = 33
 
 // cells[applePosition].classList.add('apple')
 
@@ -68,14 +57,25 @@ let applePosition = 33
 startButton.addEventListener('click', () => {
   const intervalId = setInterval(() => {
     // ! 
-    
+    if (direction === 'right') {
+      cells[snake].classList.remove('snake')
+      snake -= +1
+      cells[snake].classList.add('snake')
+    } else if ( direction === 'left') {
+      cells[snake].classList.remove('snake')
+      snake -= 1
+      cells[snake].classList.add('snake')
+    } else if ( direction === 'up') {
+      cells[snake].classList.remove('snake')
+      snake -= width
+      cells[snake].classList.add('snake')
+    } else if (direction === 'down') {
+      cells[snake].classList.remove('snake')
+      snake += width
+      cells[snake].classList.add('snake')
+    }
 
-    cells[applePosition].classList.remove('apple')
-  
-    applePosition -= +1
-    cells[applePosition].classList.add('apple')
-
-  }, 800)
+  }, 400)
 })
 
 
@@ -87,3 +87,30 @@ startButton.addEventListener('click', () => {
 // cells[snake].classList.remove('snake')
 // snake += 1
 // cells[snake].classList.add('snake')
+
+
+
+// ! hiding code so i dont screw it up
+// document.addEventListener('keyup', (event) => {
+//   const key = event.key
+
+//   if (key === 'ArrowRight' && !(snake % width === width - 1)) {
+//     cells[snake].classList.remove('snake')
+//     snake += 1
+//     cells[snake].classList.add('snake')
+//   // ? This below line if for if you don't want to boundary the whole wall.
+//   // } else if (key === 'a' && !(snake === 0)) {
+//   } else if (key === 'ArrowLeft' && !(snake % width === 0)) {
+//     cells[snake].classList.remove('snake')
+//     snake -= 1
+//     cells[snake].classList.add('snake')
+//   } else if (key === 'ArrowDown' && !(snake + width >= width ** 2)) {
+//     cells[snake].classList.remove('snake')
+//     snake += width
+//     cells[snake].classList.add('snake')
+//   } else if (key === 'ArrowUp' && !(snake < width)) {
+//     cells[snake].classList.remove('snake')
+//     snake -= width
+//     cells[snake].classList.add('snake')
+//   }
+// })
