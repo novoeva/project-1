@@ -1,0 +1,36 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0
+}
+
+.grid {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid green;
+  width: 600px;
+  height: 600px;
+  flex-wrap: wrap;
+}
+
+.cell {
+  border: 1px solid green;
+  font-size: 25px;
+}
+
+.snake {
+  background-image: url('https://p7.hiclipart.com/preview/667/239/831/snake-computer-file-cartoon-snakes-green-spot.jpg');
+  background-size: cover;
+}
+
+.apple {
+  background-image: url('https://webstockreview.net/images/apple-clipart-animated-1.png');
+  background-size: cover;
+}
