@@ -4,10 +4,16 @@ const grid = document.querySelector('.grid')
 //  Specify the width of the grid.
 const width = 15
 const cells = []
+const totalSize = width ** 2
 
 
-//Initial position of the snake
-let snake = 6
+//Initial position of the snake and score 
+let snake = [6,21]
+let score = 0
+
+//setting up the initial position of apple
+let applePosition = Math.floor(Math.random() * totalSize)
+// console.log(applePosition)
 
 
 for (let index = 0; index < width ** 2; index++) {
@@ -27,9 +33,10 @@ for (let index = 0; index < width ** 2; index++) {
 //Define the key variables
 const startButton = document.querySelector('#start')
 const resetButton = document.querySelector('#reset')
+const showScore = document.querySelector('.countingPoint')
 
 
-let direction = ''
+let direction = 'down'
 
 //Event listener for changing the direction of the snake
 
@@ -49,9 +56,6 @@ document.addEventListener('keyup', (event) => {
 //Interval that keeps the object moving
 
 
-// let applePosition = 33
-
-// cells[applePosition].classList.add('apple')
 
 
 
@@ -60,6 +64,9 @@ startButton.addEventListener('click', () => {
     // ! 
 
     cells[snake].classList.add('snake')
+    showApple()
+   
+    // cells[snake].classList.add('snake')
 
     if (direction === 'right') {
 
@@ -95,13 +102,63 @@ startButton.addEventListener('click', () => {
         cells[snake].classList.add('snake')
       }
     }
-
-  }, 500)
+    resetButton.addEventListener('click', () => {
+      clearInterval(intervalId)
+      score = 100
+      //enter where i want to start again with the snake
+    })
+  }, 300)
 })
 
 
+//function to update Apple possition
 
 
+function showApple() {
+
+  cells[applePosition].classList.add('apple')
+
+  if (snake === applePosition) {
+    score = score += 100
+    // const gameScore = score
+    console.log(score)
+    // console.log(gameScore)
+    showScore.innerHTML = score
+    
+    
+   
+    cells[applePosition].classList.remove('apple')
+    applePosition = Math.floor(Math.random() * cells.length)
+    cells[applePosition].classList.add('apple')
+  }
+
+ 
+}
+
+
+function growSnake () {
+
+
+  
+ 
+
+  if (snake === applePosition) {
+
+  snake.push(snake[snake.length-1])
+
+  }
+//snake.push
+
+
+}
+
+forEach()
+
+//i will need two forEach
+
+
+// startButton.innerHTML = 'Hi'
+// 
 
 
 // // ! This block of code is super common
