@@ -8,12 +8,11 @@ const totalSize = width ** 2
 
 
 //Initial position of the snake and score 
-let snake = [6,21]
+let snake = [51, 36]
 let score = 0
 
-//setting up the initial position of apple
-let applePosition = Math.floor(Math.random() * totalSize)
-// console.log(applePosition)
+
+
 
 
 for (let index = 0; index < width ** 2; index++) {
@@ -38,74 +37,97 @@ const showScore = document.querySelector('.countingPoint')
 
 let direction = 'down'
 
+//setting up the initial position of apple
+let applePosition = Math.floor(Math.random() * totalSize)
+
 //Event listener for changing the direction of the snake
 
 document.addEventListener('keyup', (event) => {
   const key = event.key
-  if (key === 'ArrowRight' && !(snake % width === width - 1)) {
+  if (key === 'ArrowRight') {
     direction = 'right'
-  } else if (key === 'ArrowLeft' && !(snake % width === 0)) {
+  } else if (key === 'ArrowLeft') {
     direction = 'left'
-  } else if (key === 'ArrowDown' && !(snake + width >= width ** 2)) {
+  } else if (key === 'ArrowDown') {
     direction = 'down'
-  } else if (key === 'ArrowUp' && !(snake < width)) {
+  } else if (key === 'ArrowUp') {
     direction = 'up'
   }
 })
 
+// document.addEventListener('keyup', (event) => {
+//   const key = event.key
+//   if (key === 'ArrowRight' && !(snake % width === width - 1)) {
+//     direction = 'right'
+//   } else if (key === 'ArrowLeft' && !(snake % width === 0)) {
+//     direction = 'left'
+//   } else if (key === 'ArrowDown' && !(snake + width >= width ** 2)) {
+//     direction = 'down'
+//   } else if (key === 'ArrowUp' && !(snake < width)) {
+//     direction = 'up'
+//   }
+// })
+
+
+
+// Plot the snake on the grid
+snake.forEach((snakeSkin) => {
+  cells[snakeSkin].classList.add('snake')
+})
 //Interval that keeps the object moving
-
-
-
-
 
 startButton.addEventListener('click', () => {
   const intervalId = setInterval(() => {
-    // ! 
-
-    cells[snake].classList.add('snake')
+    
     showApple()
-   
-    // cells[snake].classList.add('snake')
 
-    if (direction === 'right') {
+    snake.forEach((snakePart, i) => {
 
-      if (snake % width === width - 1) {
-        console.log('Game over')
-      } else {
-        cells[snake].classList.remove('snake')
-        snake += 1
-        cells[snake].classList.add('snake')
+      if (direction === 'right') {
+
+        if (snakePart % width === width - 1) {
+          console.log('Game over')
+        } else {
+          cells[snakePart].classList.remove('snake')
+          snake[i] += 1
+          cells[snakePart += 1].classList.add('snake')
+        }
+      } else if (direction === 'left') {
+        if (snakePart % width === 0) {
+          console.log('Game over')
+        } else {
+          cells[snakePart].classList.remove('snake')
+          snake[i] -= 1
+          cells[snakePart -= 1].classList.add('snake')
+        }
+      } else if (direction === 'up') {
+        if (snakePart < width) {
+          console.log('Game over')
+        } else {
+          cells[snakePart].classList.remove('snake')
+          snake[i] -= width
+          cells[snakePart -= width].classList.add('snake')
+        }
+      } else if (direction === 'down') {
+        if (snakePart + width >= width ** 2) {
+          console.log('Game Over')
+        } else {
+          cells[snakePart].classList.remove('snake')
+          snake[i] += width
+          cells[snakePart += width].classList.add('snake')
+          // if (snake[0] = applePosition) {
+          //   snake.push(snake[0] - (snake.lenght * width))
+          // }
+        }
       }
-    } else if (direction === 'left') {
-      if (snake % width === 0) {
-        console.log('Game over')
-      } else {
-        cells[snake].classList.remove('snake')
-        snake -= 1
-        cells[snake].classList.add('snake')
-      }
-    } else if (direction === 'up') {
-      if (snake < width) {
-        console.log('Game over')
-      } else {
-        cells[snake].classList.remove('snake')
-        snake -= width
-        cells[snake].classList.add('snake')
-      }
-    } else if (direction === 'down') {
-      if (snake + width >= width ** 2) {
-        console.log('Game Over')
-      } else {
-        cells[snake].classList.remove('snake')
-        snake += width
-        cells[snake].classList.add('snake')
-      }
-    }
+    })
+
+
     resetButton.addEventListener('click', () => {
       clearInterval(intervalId)
-      score = 100
+      score = 0
       //enter where i want to start again with the snake
+      let snake = [51, 36]
     })
   }, 300)
 })
@@ -120,39 +142,29 @@ function showApple() {
 
   if (snake === applePosition) {
     score = score += 100
-    // const gameScore = score
-    console.log(score)
-    // console.log(gameScore)
     showScore.innerHTML = score
-    
-    
-   
     cells[applePosition].classList.remove('apple')
     applePosition = Math.floor(Math.random() * cells.length)
     cells[applePosition].classList.add('apple')
   }
 
- 
-}
-
-
-function growSnake () {
-
-
-  
- 
-
-  if (snake === applePosition) {
-
-  snake.push(snake[snake.length-1])
-
-  }
-//snake.push
-
 
 }
 
-forEach()
+
+
+// function growSnake() {
+//   if (snake === applePosition) {
+
+//     snake.push(snake[snake.length - 1])
+
+//   }
+// //   //snake.push
+
+
+// // }
+
+
 
 //i will need two forEach
 
