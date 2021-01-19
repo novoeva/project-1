@@ -74,54 +74,81 @@ document.addEventListener('keyup', (event) => {
 snake.forEach((snakeSkin) => {
   cells[snakeSkin].classList.add('snake')
 })
-//Interval that keeps the object moving
 
+
+
+//Interval that keeps the object moving
 startButton.addEventListener('click', () => {
   const intervalId = setInterval(() => {
-    
+
     showApple()
-
-    snake.forEach((snakePart, i) => {
-
-      if (direction === 'right') {
-
-        if (snakePart % width === width - 1) {
-          console.log('Game over')
-        } else {
-          cells[snakePart].classList.remove('snake')
-          snake[i] += 1
-          cells[snakePart += 1].classList.add('snake')
-        }
-      } else if (direction === 'left') {
-        if (snakePart % width === 0) {
-          console.log('Game over')
-        } else {
-          cells[snakePart].classList.remove('snake')
-          snake[i] -= 1
-          cells[snakePart -= 1].classList.add('snake')
-        }
-      } else if (direction === 'up') {
-        if (snakePart < width) {
-          console.log('Game over')
-        } else {
-          cells[snakePart].classList.remove('snake')
-          snake[i] -= width
-          cells[snakePart -= width].classList.add('snake')
-        }
-      } else if (direction === 'down') {
-        if (snakePart + width >= width ** 2) {
-          console.log('Game Over')
-        } else {
-          cells[snakePart].classList.remove('snake')
-          snake[i] += width
-          cells[snakePart += width].classList.add('snake')
-          // if (snake[0] = applePosition) {
-          //   snake.push(snake[0] - (snake.lenght * width))
-          // }
-        }
-      }
+    console.log(snake)
+    snake.forEach((snakeSkin2) => {
+      cells[snakeSkin2].classList.remove('snake')
     })
 
+
+    // snake.forEach((snakePart, i) => {
+
+    if (direction === 'right') {
+
+      if (snake[0] % width === width - 1) {
+        console.log('Game over')
+      } else {
+
+
+        // cells[snakePart].classList.remove('snake')
+        const newFirstPiece = snake[0] + 1
+        snake.pop()
+        snake.unshift(newFirstPiece)
+        // cells[snakePart].classList.add('snake')
+
+
+      }
+    } else if (direction === 'left') {
+      if (snake[0] % width === 0) {
+        console.log('Game over')
+      } else {
+        // cells[snakePart].classList.remove('snake')
+        const newFirstPiece = snake[0] - 1
+        snake.pop()
+        snake.unshift(newFirstPiece)
+        // cells[snakePart].classList.add('snake')
+
+      }
+    } else if (direction === 'up') {
+      if (snake[0] < width) {
+        console.log('Game over')
+      } else {
+        // cells[snakePart].classList.remove('snake')
+        const newFirstPiece = snake[0] - width
+        snake.pop()
+        snake.unshift(newFirstPiece)
+        // cells[snakePart].classList.add('snake')
+
+
+      }
+    } else if (direction === 'down') {
+      if (snake[0] + width >= width ** 2) {
+        console.log('Game Over')
+      } else {
+
+        // // if (snake[0] = applePosition) {
+        // //   snake.push(snake[0] - (snake.lenght * width))
+        // // }
+        // cells[snakePart].classList.remove('snake')
+        const newFirstPiece = snake[0] + width
+        snake.pop()
+        snake.unshift(newFirstPiece)
+        // cells[snakePart].classList.add('snake')
+
+      }
+    }
+    // })
+    snake.forEach((snakeSkin) => {
+      cells[snakeSkin].classList.add('snake')
+    })
+   
 
     resetButton.addEventListener('click', () => {
       clearInterval(intervalId)
@@ -203,4 +230,61 @@ function showApple() {
 //     snake -= width
 //     cells[snake].classList.add('snake')
 //   }
+// })
+
+
+// startButton.addEventListener('click', () => {
+//   const intervalId = setInterval(() => {
+
+//     showApple()
+
+//     snake.forEach((snakePart, i) => {
+
+//       if (direction === 'right') {
+
+//         if (snakePart % width === width - 1) {
+//           console.log('Game over')
+//         } else {
+//           cells[snakePart].classList.remove('snake')
+//           snake[i] += 1
+//           cells[snakePart += 1].classList.add('snake')
+//         }
+//       } else if (direction === 'left') {
+//         if (snakePart % width === 0) {
+//           console.log('Game over')
+//         } else {
+//           cells[snakePart].classList.remove('snake')
+//           snake[i] -= 1
+//           cells[snakePart -= 1].classList.add('snake')
+//         }
+//       } else if (direction === 'up') {
+//         if (snakePart < width) {
+//           console.log('Game over')
+//         } else {
+//           cells[snakePart].classList.remove('snake')
+//           snake[i] -= width
+//           cells[snakePart -= width].classList.add('snake')
+//         }
+//       } else if (direction === 'down') {
+//         if (snakePart + width >= width ** 2) {
+//           console.log('Game Over')
+//         } else {
+//           cells[snakePart].classList.remove('snake')
+//           snake[i] += width
+//           cells[snakePart += width].classList.add('snake')
+//           // if (snake[0] = applePosition) {
+//           //   snake.push(snake[0] - (snake.lenght * width))
+//           // }
+//         }
+//       }
+//     })
+
+
+//     resetButton.addEventListener('click', () => {
+//       clearInterval(intervalId)
+//       score = 0
+//       //enter where i want to start again with the snake
+//       let snake = [51, 36]
+//     })
+//   }, 300)
 // })
