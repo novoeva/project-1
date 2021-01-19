@@ -25,12 +25,13 @@ body {
   font-size: 25px;
 }
 
-.snake {
-  background-color: green;
-  background-size: cover;
-}
 
 .apple {
   background-image: url('https://s.pngkit.com/png/small/130-1309198_top-images-2018-unicorn-clipart-transparent-background-transparent.png');
+  background-size: cover;
+}
+
+.snake {
+  background-color: green;
   background-size: cover;
 }
