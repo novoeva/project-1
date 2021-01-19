@@ -8,7 +8,7 @@ const totalSize = width ** 2
 
 
 //Initial position of the snake and score 
-let snake = [51, 36]
+let snake = [51, 36, 21, 6]
 let score = 0
 
 
@@ -95,26 +95,27 @@ startButton.addEventListener('click', () => {
       if (snake[0] % width === width - 1) {
         console.log('Game over')
       } else {
-
-
-        // cells[snakePart].classList.remove('snake')
         const newFirstPiece = snake[0] + 1
         snake.pop()
         snake.unshift(newFirstPiece)
-        // cells[snakePart].classList.add('snake')
-
+       
+        if (snake[0] === applePosition) {
+          growSnake()
+        }
 
       }
     } else if (direction === 'left') {
       if (snake[0] % width === 0) {
         console.log('Game over')
       } else {
-        // cells[snakePart].classList.remove('snake')
+        
         const newFirstPiece = snake[0] - 1
         snake.pop()
         snake.unshift(newFirstPiece)
-        // cells[snakePart].classList.add('snake')
-
+        if (snake[0] === applePosition) {
+          growSnake()
+        }
+        
       }
     } else if (direction === 'up') {
       if (snake[0] < width) {
@@ -125,6 +126,9 @@ startButton.addEventListener('click', () => {
         snake.pop()
         snake.unshift(newFirstPiece)
         // cells[snakePart].classList.add('snake')
+        if (snake[0] === applePosition) {
+          growSnake()
+        }
 
 
       }
@@ -141,6 +145,9 @@ startButton.addEventListener('click', () => {
         snake.pop()
         snake.unshift(newFirstPiece)
         // cells[snakePart].classList.add('snake')
+        if (snake[0] === applePosition) {
+          growSnake()
+        }
 
       }
     }
@@ -148,7 +155,7 @@ startButton.addEventListener('click', () => {
     snake.forEach((snakeSkin) => {
       cells[snakeSkin].classList.add('snake')
     })
-   
+
 
     resetButton.addEventListener('click', () => {
       clearInterval(intervalId)
@@ -156,7 +163,7 @@ startButton.addEventListener('click', () => {
       //enter where i want to start again with the snake
       let snake = [51, 36]
     })
-  }, 300)
+  }, 200)
 })
 
 
@@ -167,16 +174,45 @@ function showApple() {
 
   cells[applePosition].classList.add('apple')
 
-  if (snake === applePosition) {
-    score = score += 100
-    showScore.innerHTML = score
+  if (snake[0] === applePosition) {
+
     cells[applePosition].classList.remove('apple')
     applePosition = Math.floor(Math.random() * cells.length)
     cells[applePosition].classList.add('apple')
+    score = score += 100
+    showScore.innerHTML = score
   }
 
 
 }
+
+//logic behind how should the snake grow (it pushes an item at the end of the array)
+function growSnake() {
+
+  const lastPiece = snake[snake.length - 1]
+  const secondtoLast = snake[snake.length - 2]
+
+
+  if (lastPiece - secondtoLast === - width) {
+
+    snake.push(snake[snake.length - 1] - width)
+  } else if (lastPiece - secondtoLast === 1) {
+    snake.push(snake[snake.length - 1] + 1)
+  } else if (lastPiece - secondtoLast === - 1) {
+    snake.push(snake[snake.length - 1] - 1)
+  } else if (lastPiece - secondtoLast === width) {
+    snake.push(snake[snake.length - 1] + width)
+
+  }
+
+}
+
+
+
+
+
+
+
 
 
 
