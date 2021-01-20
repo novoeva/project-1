@@ -70,24 +70,29 @@ document.addEventListener('keyup', (event) => {
 
 
 
-// Plot the snake on the grid
-snake.forEach((snakeSkin) => {
-  cells[snakeSkin].classList.add('snake')
-})
 
 
-
-// not creating multiple intervals
+// Bug fix not creating multiple intervals
 let intervalId = 0
+
+
+
 
 //Interval that keeps the object moving
 startButton.addEventListener('click', () => {
+  runSnake()
+})
+function runSnake() {
+  // Plot the snake on the grid
+  snake.forEach((snakeSkin) => {
+    cells[snakeSkin].classList.add('snake')
+  })
 
   if (intervalId !== 0) return
   intervalId = setInterval(() => {
 
     showApple()
-    console.log(snake)
+    // console.log(snake)
     snake.forEach((snakeSkin2) => {
       cells[snakeSkin2].classList.remove('snake')
     })
@@ -150,42 +155,74 @@ startButton.addEventListener('click', () => {
     snake.forEach((snakeSkin) => {
       cells[snakeSkin].classList.add('snake')
     })
-
-
-    resetButton.addEventListener('click', () => {
-      clearInterval(intervalId)
-      let score = 0
-      //enter where i want to start again with the snake
-      let snake = [51, 36]
-    })
   }, 200)
-})
+}
 
+//reset button that resets the whole game and resets snake to initial position
+resetButton.addEventListener('click', () => {
+  clearInterval(intervalId)
+  intervalId = 0
+  let score = 0
+  showScore.innerHTML = score
+  //remove the current snake
+  snake.forEach((snakeSkin2) => {
+    cells[snakeSkin2].classList.remove('snake')
+  })
+  //enter where i want to start again with the snake
+  snake = [51, 36, 21, 6]
+  //make snake appear again
+  snake.forEach((snakeSkin2) => {
+    cells[snakeSkin2].classList.add('snake')
+  })
+  //remove apple
+  cells[applePosition].classList.remove('apple')
+
+
+})
 
 //function to update Apple possition
 
 
 function showApple() {
 
-  if (cells[applePosition].classList.contains('snake')) {
-    cells[applePosition].classList.remove('apple')
-    applePosition = Math.floor(Math.random() * cells.length)
-   
-  }
-
   cells[applePosition].classList.add('apple')
+
+  // if (cells[applePosition].classList.contains('snake')) {
+  //   cells[applePosition].classList.remove('apple')
+  //   applePosition = Math.floor(Math.random() * cells.length)
+
+  // } //! this does not add score properly
 
   if (snake[0] === applePosition) {
 
     cells[applePosition].classList.remove('apple')
     applePosition = Math.floor(Math.random() * cells.length)
 
+    // array.includes(element,start)  
+    while (snake.includes(applePosition)) {
+      applePosition = Math.floor(Math.random() * cells.length)
+      console.log(applePosition)
+      console.log('this is it')
+    }
+
+
+
+    // // cells[applePosition].classList.add('apple')
+
+    // snake.forEach((snakePart) => {
+    //   if (applePosition === snakePart) {
+    //     cells[applePosition].classList.remove('apple')
+    //     applePosition = Math.floor(Math.random() * cells.length)
+
+    //   }
+    // })
+
     cells[applePosition].classList.add('apple')
     score = score += 100
     showScore.innerHTML = score
   }
 
-  
+
 
 }
 
@@ -211,119 +248,29 @@ function growSnake() {
 }
 
 
+// //function to update Apple possition
 
 
+// function showApple() {
 
-
-
-
-
-
-// function growSnake() {
-//   if (snake === applePosition) {
-
-//     snake.push(snake[snake.length - 1])
+//   if (cells[applePosition].classList.contains('snake')) {
+//     cells[applePosition].classList.remove('apple')
+//     applePosition = Math.floor(Math.random() * cells.length)
 
 //   }
-// //   //snake.push
 
+//   cells[applePosition].classList.add('apple')
 
-// // }
+//   if (snake[0] === applePosition) {
 
+//     cells[applePosition].classList.remove('apple')
+//     applePosition = Math.floor(Math.random() * cells.length)
 
-
-//i will need two forEach
-
-
-// startButton.innerHTML = 'Hi'
-// 
-
-
-// // ! This block of code is super common
-// cells[snake].classList.remove('snake')
-// snake += 1
-// cells[snake].classList.add('snake')
-
-
-
-// ! hiding code so i dont screw it up
-// document.addEventListener('keyup', (event) => {
-//   const key = event.key
-
-//   if (key === 'ArrowRight' && !(snake % width === width - 1)) {
-//     cells[snake].classList.remove('snake')
-//     snake += 1
-//     cells[snake].classList.add('snake')
-//   // ? This below line if for if you don't want to boundary the whole wall.
-//   // } else if (key === 'a' && !(snake === 0)) {
-//   } else if (key === 'ArrowLeft' && !(snake % width === 0)) {
-//     cells[snake].classList.remove('snake')
-//     snake -= 1
-//     cells[snake].classList.add('snake')
-//   } else if (key === 'ArrowDown' && !(snake + width >= width ** 2)) {
-//     cells[snake].classList.remove('snake')
-//     snake += width
-//     cells[snake].classList.add('snake')
-//   } else if (key === 'ArrowUp' && !(snake < width)) {
-//     cells[snake].classList.remove('snake')
-//     snake -= width
-//     cells[snake].classList.add('snake')
+//     cells[applePosition].classList.add('apple')
+//     score = score += 100
+//     showScore.innerHTML = score
 //   }
-// })
 
 
-// startButton.addEventListener('click', () => {
-//   const intervalId = setInterval(() => {
 
-//     showApple()
-
-//     snake.forEach((snakePart, i) => {
-
-//       if (direction === 'right') {
-
-//         if (snakePart % width === width - 1) {
-//           console.log('Game over')
-//         } else {
-//           cells[snakePart].classList.remove('snake')
-//           snake[i] += 1
-//           cells[snakePart += 1].classList.add('snake')
-//         }
-//       } else if (direction === 'left') {
-//         if (snakePart % width === 0) {
-//           console.log('Game over')
-//         } else {
-//           cells[snakePart].classList.remove('snake')
-//           snake[i] -= 1
-//           cells[snakePart -= 1].classList.add('snake')
-//         }
-//       } else if (direction === 'up') {
-//         if (snakePart < width) {
-//           console.log('Game over')
-//         } else {
-//           cells[snakePart].classList.remove('snake')
-//           snake[i] -= width
-//           cells[snakePart -= width].classList.add('snake')
-//         }
-//       } else if (direction === 'down') {
-//         if (snakePart + width >= width ** 2) {
-//           console.log('Game Over')
-//         } else {
-//           cells[snakePart].classList.remove('snake')
-//           snake[i] += width
-//           cells[snakePart += width].classList.add('snake')
-//           // if (snake[0] = applePosition) {
-//           //   snake.push(snake[0] - (snake.lenght * width))
-//           // }
-//         }
-//       }
-//     })
-
-
-//     resetButton.addEventListener('click', () => {
-//       clearInterval(intervalId)
-//       score = 0
-//       //enter where i want to start again with the snake
-//       let snake = [51, 36]
-//     })
-//   }, 300)
-// })
+// }
