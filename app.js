@@ -22,7 +22,7 @@ for (let index = 0; index < width ** 2; index++) {
   grid.appendChild(cell)
   cells.push(cell)
   // ? Number each cell by its index.
-  cell.innerHTML = index
+  // ! cell.innerHTML = index
   // ? Set the width and height of my cells
   cell.style.width = `${100 / width}%`
   cell.style.height = `${100 / width}%`
