@@ -92,7 +92,7 @@ function runSnake() {
   intervalId = setInterval(() => {
 
     showApple()
-    // console.log(snake)
+    console.log(snake)
     snake.forEach((snakeSkin2) => {
       cells[snakeSkin2].classList.remove('snake')
     })
@@ -104,11 +104,13 @@ function runSnake() {
         console.log('Game over')
       } else {
         const newFirstPiece = snake[0] + 1
-        snake.pop()
         snake.unshift(newFirstPiece)
 
         if (snake[0] === applePosition) {
-          growSnake()
+          // growSnake()
+          console.log('eaten from right')
+        } else {
+          snake.pop()
         }
 
       }
@@ -118,10 +120,14 @@ function runSnake() {
       } else {
 
         const newFirstPiece = snake[0] - 1
-        snake.pop()
         snake.unshift(newFirstPiece)
+        
+       
         if (snake[0] === applePosition) {
-          growSnake()
+          // growSnake()
+          console.log('eaten from left')
+        } else {
+          snake.pop()
         }
 
       }
@@ -130,10 +136,14 @@ function runSnake() {
         console.log('Game over')
       } else {
         const newFirstPiece = snake[0] - width
-        snake.pop()
+  
+        
         snake.unshift(newFirstPiece)
         if (snake[0] === applePosition) {
-          growSnake()
+          // growSnake()
+          console.log('eaten from down')
+        } else {
+          snake.pop()
         }
 
 
@@ -143,17 +153,24 @@ function runSnake() {
         console.log('Game Over')
       } else {
         const newFirstPiece = snake[0] + width
-        snake.pop()
+  
+        
         snake.unshift(newFirstPiece)
         if (snake[0] === applePosition) {
-          growSnake()
+          // growSnake()
+          console.log('eaten from up')
+        } else {
+          snake.pop()
         }
 
       }
     }
 
+    dontEatSnake()
+
     snake.forEach((snakeSkin) => {
       cells[snakeSkin].classList.add('snake')
+
     })
   }, 200)
 }
@@ -170,6 +187,7 @@ resetButton.addEventListener('click', () => {
   })
   //enter where i want to start again with the snake
   snake = [51, 36, 21, 6]
+  direction = 'down'
   //make snake appear again
   snake.forEach((snakeSkin2) => {
     cells[snakeSkin2].classList.add('snake')
@@ -179,6 +197,27 @@ resetButton.addEventListener('click', () => {
 
 
 })
+
+
+
+//function to check if snake eats itself
+
+
+function dontEatSnake() {
+  for (let i = 1; i < snake.length - 1; i++) {
+    if (snake[0] === snake[i]) {
+      console.log('you loser')
+      clearInterval(intervalId)
+
+    }
+
+  }
+}
+
+
+
+
+
 
 //function to update Apple possition
 
@@ -207,15 +246,6 @@ function showApple() {
 
 
 
-    // // cells[applePosition].classList.add('apple')
-
-    // snake.forEach((snakePart) => {
-    //   if (applePosition === snakePart) {
-    //     cells[applePosition].classList.remove('apple')
-    //     applePosition = Math.floor(Math.random() * cells.length)
-
-    //   }
-    // })
 
     cells[applePosition].classList.add('apple')
     score = score += 100
@@ -248,29 +278,91 @@ function growSnake() {
 }
 
 
-// //function to update Apple possition
 
 
-// function showApple() {
+// //Interval that keeps the object moving
+// startButton.addEventListener('click', () => {
+//   runSnake()
+// })
+// function runSnake() {
+//   // Plot the snake on the grid
+//   snake.forEach((snakeSkin) => {
+//     cells[snakeSkin].classList.add('snake')
+//   })
 
-//   if (cells[applePosition].classList.contains('snake')) {
-//     cells[applePosition].classList.remove('apple')
-//     applePosition = Math.floor(Math.random() * cells.length)
+//   if (intervalId !== 0) return
+//   intervalId = setInterval(() => {
 
-//   }
-
-//   cells[applePosition].classList.add('apple')
-
-//   if (snake[0] === applePosition) {
-
-//     cells[applePosition].classList.remove('apple')
-//     applePosition = Math.floor(Math.random() * cells.length)
-
-//     cells[applePosition].classList.add('apple')
-//     score = score += 100
-//     showScore.innerHTML = score
-//   }
-
+//     showApple()
+//     console.log(snake)
+//     snake.forEach((snakeSkin2) => {
+//       cells[snakeSkin2].classList.remove('snake')
+//     })
 
 
+//     if (direction === 'right') {
+
+//       if (snake[0] % width === width - 1) {
+//         console.log('Game over')
+//       } else {
+//         const newFirstPiece = snake[0] + 1
+//         snake.pop()
+//         snake.unshift(newFirstPiece)
+
+//         if (snake[0] === applePosition) {
+//           growSnake()
+//         }
+
+//       }
+//     } else if (direction === 'left') {
+//       if (snake[0] % width === 0) {
+//         console.log('Game over')
+//       } else {
+
+//         const newFirstPiece = snake[0] - 1
+//         snake.unshift(newFirstPiece)
+        
+       
+//         if (snake[0] === applePosition) {
+//           // growSnake()
+//           console.log('unicorn eaten')
+//         } else {
+//           snake.pop()
+//         }
+
+//       }
+//     } else if (direction === 'up') {
+//       if (snake[0] < width) {
+//         console.log('Game over')
+//       } else {
+//         const newFirstPiece = snake[0] - width
+//         snake.pop()
+//         snake.unshift(newFirstPiece)
+//         if (snake[0] === applePosition) {
+//           growSnake()
+//         }
+
+
+//       }
+//     } else if (direction === 'down') {
+//       if (snake[0] + width >= width ** 2) {
+//         console.log('Game Over')
+//       } else {
+//         const newFirstPiece = snake[0] + width
+//         snake.pop()
+//         snake.unshift(newFirstPiece)
+//         if (snake[0] === applePosition) {
+//           growSnake()
+//         }
+
+//       }
+//     }
+
+//     dontEatSnake()
+
+//     snake.forEach((snakeSkin) => {
+//       cells[snakeSkin].classList.add('snake')
+
+//     })
+//   }, 200)
 // }
