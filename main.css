@@ -18,8 +18,8 @@ body {
   display: flex;
   flex-direction: row;
   border: 1px solid black;
-  width: 500px;
-  height: 500px;
+  width: 450px;
+  height: 450px;
   flex-wrap: wrap;
 }
 
@@ -27,6 +27,8 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
+  border: 2px solid #fffdd0;
+  padding: 20px;
 }
 
 article {
@@ -45,7 +47,12 @@ article {
 
 
 .apple {
-  background-image: url('https://s.pngkit.com/png/small/130-1309198_top-images-2018-unicorn-clipart-transparent-background-transparent.png');
+  background-image: url('pictures/apple.png');
+  background-size: cover;
+}
+
+.unicorn {
+  background-image: url('pictures/unicorn.png');
   background-size: cover;
 }
 
@@ -75,5 +82,12 @@ button {
 }
 
 h1 {
-  font-size: 40px;
+  font-size: 50px;
+  margin: 20px;
 }
+
+small {
+  display: flex;
+  align-items: flex-end;
+}
+ 
