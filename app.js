@@ -87,7 +87,7 @@ startButton.addEventListener('click', () => {
   runSnake()
 })
 function runSnake() {
-  console.log('function starts')
+  // console.log('function starts')
   // Plot the snake on the grid
   snake.forEach((snakeSkin) => {
     cells[snakeSkin].classList.add('snake')
@@ -109,6 +109,10 @@ function runSnake() {
 
       if (snake[0] % width === width - 1) {
         console.log('Game over')
+        clearInterval(intervalId)
+        clearInterval(intervalId2)
+        // cells[unicornPosition].classList.remove('unicorn')
+        alert('Game over')
       } else {
         const newFirstPiece = snake[0] + 1
         snake.unshift(newFirstPiece)
@@ -134,6 +138,10 @@ function runSnake() {
     } else if (direction === 'left') {
       if (snake[0] % width === 0) {
         console.log('Game over')
+        clearInterval(intervalId)
+        clearInterval(intervalId2)
+        // cells[unicornPosition].classList.remove('unicorn')
+        alert('Game over')
       } else {
 
         const newFirstPiece = snake[0] - 1
@@ -161,6 +169,10 @@ function runSnake() {
     } else if (direction === 'up') {
       if (snake[0] < width) {
         console.log('Game over')
+        clearInterval(intervalId)
+        clearInterval(intervalId2)
+        // cells[unicornPosition].classList.remove('unicorn')
+        alert('Game over')
       } else {
         const newFirstPiece = snake[0] - width
 
@@ -188,6 +200,10 @@ function runSnake() {
     } else if (direction === 'down') {
       if (snake[0] + width >= width ** 2) {
         console.log('Game Over')
+        clearInterval(intervalId)
+        clearInterval(intervalId2)
+        // cells[unicornPosition].classList.remove('unicorn')
+        alert('Game over')
       } else {
         const newFirstPiece = snake[0] + width
 
@@ -222,17 +238,6 @@ function runSnake() {
   }, gameSpeed)
 }
 
-//speed up the snake when it hits the apple
-
-
-// const speed = () => {
-//   const initialSpeed = 400
-//   if (snake[0] === applePosition) {
-//     const speedConstant = 0.95
-//     let newSpeed = initialSpeed * speedConstant
-
-//   }
-// }
 
 
 //set interval for unicorn
@@ -250,7 +255,7 @@ startButton.addEventListener('click', () => {
 
   if (intervalId2 !== 0) return
   intervalId2 = setInterval(() => {
-    console.log('is the interval starting')
+    console.log('unicorn the interval is starting')
     setTimeout(() => {
 
       unicornPosition = Math.floor(Math.random() * totalSize)
@@ -266,19 +271,16 @@ startButton.addEventListener('click', () => {
       }
 
 
-      
+      console.log('unicorn is about to be added')
       cells[unicornPosition].classList.add('unicorn')
       setTimeout(() => {
-
+        console.log('unicorn is about to be removed')
         cells[unicornPosition].classList.remove('unicorn')
-
 
       }, 6000)
 
 
-
     }, 10000)
-
 
 
   }, 15000)
@@ -297,18 +299,6 @@ function showUnicorn() {
     cells[unicornPosition].classList.remove('unicorn')
 
 
-    // // checking it does not appear where the snake is
-    // while (snake.includes(unicornPosition)) {
-    //   unicornPosition = Math.floor(Math.random() * cells.length)
-    //   console.log('this snake clashing with unicorn')
-    // }
-    // // checking it does not appear where the apple is
-    // while (unicornPosition === unicornPosition) {
-    //   unicornPosition = Math.floor(Math.random() * cells.length)
-    //   console.log('this apple clashing  with unicorn')
-    // }
-
-
   }
 
 }
@@ -321,7 +311,8 @@ function showUnicorn() {
 resetButton.addEventListener('click', () => {
   clearInterval(intervalId)
   intervalId = 0
-  // ! window.localStorage.clear() - this does not work
+
+  
   score = 0
   showScore.innerHTML = score
   gameSpeed = 400
@@ -340,7 +331,8 @@ resetButton.addEventListener('click', () => {
   cells[applePosition].classList.remove('apple')
   //reset unicorn interval
   clearInterval(intervalId2)
-  cells[applePosition].classList.remove('unicorn')
+  cells[unicornPosition].classList.remove('unicorn')
+  intervalId2 = 0
 
 })
 
@@ -353,6 +345,7 @@ function dontEatSnake() {
   for (let i = 1; i < snake.length - 1; i++) {
     if (snake[0] === snake[i]) {
       console.log('you loser')
+      alert('Game over')
       //clear the interval when it eats itself
       clearInterval(intervalId)
       //remove apple
@@ -368,21 +361,12 @@ function dontEatSnake() {
 
 
 
-
-
-
 //function to update Apple possition
 
 
 function showApple() {
 
   cells[applePosition].classList.add('apple')
-
-  // if (cells[applePosition].classList.contains('snake')) {
-  //   cells[applePosition].classList.remove('apple')
-  //   applePosition = Math.floor(Math.random() * cells.length)
-
-  // } //! this does not add score properly
 
   if (snake[0] === applePosition) {
 
